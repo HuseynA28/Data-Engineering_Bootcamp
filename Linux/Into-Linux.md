@@ -463,7 +463,7 @@ echo "hello" > myfile.txt
 echo "appendme" >> myfile.txt
   ```
 
-### File and Folder Operations
+### Remove files and folders
 
 - **Remove a File**:
   ```bash
