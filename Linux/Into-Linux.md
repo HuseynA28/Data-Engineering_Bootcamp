@@ -215,20 +215,97 @@ Aliases let you create shortcuts for commands.
 
 ---
 
+## Sorting and Filtering
 
-## Using environmental variables 
+### Sort Files or Lines
+- Reverse order:
+  ```bash
+  ls | sort -r
+  ```
+- Sort by the second column in a file:
+  ```bash
+  cat users | sort -k 2
+  ```
 
-What are environment variables: Used to store configuration information and settings . Environment variables are written in uppercase letters
-We can list all of them with the following command:
-env
-Example (to be preferred):
+### Find Unique Lines
+- Find unique lines:
+  ```bash
+  sort users.txt | uniq
+  ```
+- Alternative:
+  ```bash
+  sort -u users.txt
+  ```
 
-echo "${PWD}"
-echo "${USER}"
-echo "${PATH}"
-We can also use:
+### Show Duplicated Values
+- Find duplicated lines:
+  ```bash
+  sort rome.txt | uniq -d
+  ```
 
-echo "$PATH"
-We should avoid:
+---
 
-echo $PATH
+## Filter Lines
+
+### Using `grep`
+- Filter lines containing a specific pattern:
+  ```bash
+  grep -F "pattern" file.txt
+  ```
+
+---
+
+## How to Work with Strings
+
+### Replace Characters
+- Replace characters with `tr`:
+  ```bash
+  echo "bash" | tr 'b' 'd'
+  ```
+  Output: `dash`
+
+### Extract Substrings with `cut`
+
+#### Basic Usage
+Extract the first 10 bytes from the output of `uptime`:
+```bash
+uptime | cut -b 1-10
+```
+
+#### Handling Non-English Characters
+Be cautious of multi-byte characters:
+```bash
+echo "höhö" | cut -b 1-3
+```
+Output: `hö`
+
+#### Using Delimiters
+Extract fields using a delimiter:
+```bash
+uptime | cut -d " " -f 2
+```
+
+---
+
+## Why `sort` is Necessary Before `uniq`
+
+The `uniq` command only removes **adjacent duplicate lines**. To ensure correct results, always sort the input first:
+
+### Incorrect Example:
+```bash
+cat access.log | grep -F ".zip" | cut -d " " -f 7 | uniq
+```
+
+### Correct Example:
+```bash
+cat access.log | grep -F ".zip" | cut -d " " -f 7 | sort | uniq
+```
+
+---
+
+
+
+
+
+
+By practicing these commands, you will build a strong foundation in Linux, an essential skill for Data Engineering.
