@@ -215,5 +215,20 @@ Aliases let you create shortcuts for commands.
 
 ---
 
-By practicing these commands, you will build a strong foundation in Linux, an essential skill for Data Engineering.
 
+## Using environmental variables 
+
+What are environment variables: Used to store configuration information and settings . Environment variables are written in uppercase letters
+We can list all of them with the following command:
+env
+Example (to be preferred):
+
+echo "${PWD}"
+echo "${USER}"
+echo "${PATH}"
+We can also use:
+
+echo "$PATH"
+We should avoid:
+
+echo $PATH
