@@ -395,5 +395,105 @@ unset MY_VAR
 
 ---
 
+## Commit Commands
+
+In Linux, if you type a variable name without assigning a value, the system considers it as a command. The shell will attempt to execute the "command" by searching for it in directories listed in the `PATH` environment variable:
+
+```bash
+echo "${PATH}"
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/
+```
+
+The shell searches each directory in the `PATH` until it finds the command. If the command is not found, it either does not exist or the file/folder is not executable.
+
+### Example: Creating and Running a Script
+
+1. **Create a Script**
+   ```bash
+   nano my_script.sh
+   ```
+   Add the following content:
+   ```bash
+   #!/bin/bash
+   echo "Hello, World!"
+   ```
+   The first line (`#!/bin/bash`) specifies the interpreter (in this case, Bash) to execute the script.
+
+2. **Save and Exit**
+   In nano, press `Ctrl + O`, then `Enter`, and then `Ctrl + X` to save and exit.
+
+3. **Make the Script Executable**
+   ```bash
+   chmod +x my_script.sh
+   ```
+
+4. **Run the Script**
+   ```bash
+   ./my_script.sh
+   ```
+
+5. **Optional: Add to PATH**
+   To execute the script from anywhere:
+   ```bash
+   mv my_script.sh /usr/local/bin/
+   ```
+   Now you can run it simply by typing:
+   ```bash
+   my_script.sh
+   ```
+
+---
+
+## Commands on Files and Folders
+
+- **Create a Directory**:
+  ```bash
+  mkdir my_folder
+  ```
+- **Create a File**:
+  ```bash
+  touch myfile.txt
+  ```
+- **Write to a File**:
+  ```bash
+echo "hello" > myfile.txt
+  ```
+- **Append Text to a File**:
+  ```bash
+echo "appendme" >> myfile.txt
+  ```
+
+### File and Folder Operations
+
+- **Remove a File**:
+  ```bash
+  rm file.txt
+  ```
+- **Copy a File**:
+  ```bash
+  cp file.txt /path/to/destination/
+  ```
+- **Copy a Directory Recursively**:
+  ```bash
+  cp -R folder /path/to/destination/
+  ```
+- **Remove an Empty Directory**:
+  ```bash
+  rmdir empty_folder/
+  ```
+- **Remove a Directory and Its Contents**:
+  ```bash
+  rm -r folder/
+  ```
+
+### Advanced Example
+To copy specific files matching patterns:
+```bash
+cp Purchasing/0[1-2]*/*.{pdf,xlsx} myfile
+```
+This command copies all `.pdf` and `.xlsx` files from subdirectories matching `01` and `02` to `myfile`.
+
+---
+
 By practicing these commands, you will build a strong foundation in Linux, an essential skill for Data Engineering.
 
