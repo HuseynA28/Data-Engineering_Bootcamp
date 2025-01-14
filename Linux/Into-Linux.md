@@ -303,9 +303,97 @@ cat access.log | grep -F ".zip" | cut -d " " -f 7 | sort | uniq
 
 ---
 
+## Using Environment Variables
 
+The logic of variables in Linux is similar to other programming languages like Python. You assign values to variables for use in commands or scripts.
 
+### Defining Variables
+Assign a value to a variable:
+```bash
+my_name=Yourname
+```
+Print the value of the variable:
+```bash
+echo "${my_name}"
+```
 
+### Accessing System Variables
+System variables can be accessed similarly:
+```bash
+echo "$PATH"
+```
+> Avoid using `echo $PATH` directly without quotes to prevent potential issues.
 
+---
+
+### Types of Environment Variables
+
+#### Global Variables
+Global variables are available system-wide and can be accessed by all processes or scripts started by the shell.
+```bash
+export MY_VAR="Hello, World"
+```
+Subsequent shells or scripts can access `MY_VAR` as an environment variable.
+
+#### Local Variables
+Local variables are limited to the current shell session or script.
+```bash
+MY_VAR="Local Variable"
+echo "$MY_VAR"
+```
+
+| Aspect          | Global Variable        | Local Variable        |
+|-----------------|------------------------|------------------------|
+| **Scope**       | Available to all child processes | Limited to the shell session or script |
+| **Declaration** | Declared with `export` | Declared without `export` |
+| **Inheritance** | Inherited by subshells and processes | Not inherited |
+
+### Listing and Managing Environment Variables
+
+#### List All Variables
+List global environment variables:
+```bash
+env
+```
+
+#### Access Variable Values
+For example, get the current working directory:
+```bash
+echo "${PWD}"
+```
+
+#### Adding Directories to `PATH`
+Update the `PATH` so the system can locate programs in a custom directory:
+```bash
+export PATH=$PATH:~/bin
+```
+
+Make the change permanent by editing `~/.bashrc`:
+```bash
+nano ~/.bashrc
+```
+Add the line:
+```bash
+PATH="${PATH}:/home/username/bin"
+```
+Reload the shell configuration:
+```bash
+source ~/.bashrc
+```
+
+#### Find Variables with `grep`
+Search for specific variables:
+```bash
+env | grep PATH
+```
+
+#### Deleting Variables
+Unset a variable:
+```bash
+unset MY_VAR
+```
+
+---
 
 By practicing these commands, you will build a strong foundation in Linux, an essential skill for Data Engineering.
+
