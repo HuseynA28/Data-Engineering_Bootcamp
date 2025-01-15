@@ -87,7 +87,7 @@ We'll use this file for all the examples below.
    Hot
    ```
 
-4. **Exclude lines containing specific characters**:
+4. **Exclude lines containing a specific word**:
    ```bash
    grep -v "Hot" file.txt
    ```
@@ -109,17 +109,17 @@ We'll use this file for all the examples below.
    1
    ```
 
-5. **Count  case-insensitive,**:
-grep command to match both lowercase world and capitalized World
+6. **Count case-insensitive matches**:
+   Use `grep` to match both lowercase "world" and capitalized "World":
    ```bash
-  grep -i -c "world" file.txt
+   grep -i -c "world" file.txt
    ```
    **Output**:
    ```
-   2grep 
+   2
    ```
 
-6. **Show line numbers with matches**:
+7. **Show line numbers with matches**:
    ```bash
    grep -n "Hello" file.txt
    ```
@@ -128,7 +128,7 @@ grep command to match both lowercase world and capitalized World
    1:Hello World
    ```
 
-7. **Search for patterns with specific ranges**:
+8. **Search for patterns with specific ranges**:
    ```bash
    grep "[a-z]ing" file.txt
    ```
@@ -137,22 +137,35 @@ grep command to match both lowercase world and capitalized World
    Linux is amazing
    ```
 
-8. **Search for words with repeated characters**:
+9. **Search for words with repeated characters**:
    ```bash
    grep "o*" file.txt
    ```
+   The pattern `o*` means "zero or more occurrences of the letter 'o'."
    **Output**:
    ```
    Hello World
    Linux is amazing
+   Hat
+   Hit
+   Hot
    Goodbye world
    ```
 
-9. **Match words with escape characters**:
+   To find words containing exactly two or more `o`s:
    ```bash
-   grep "\." file.txt
+   grep -o '\b[^ ]*o[^ ]*o[^ ]*\b' file.txt
    ```
-   **Explanation**: This matches any line containing a literal `.` character.
+   **Output**:
+   ```
+   Goodbye
+   ```
+
+10. **Match words with escape characters**:
+    ```bash
+    grep "\." file.txt
+    ```
+    **Explanation**: This matches any line containing a literal `.` character.
 
 ---
 
