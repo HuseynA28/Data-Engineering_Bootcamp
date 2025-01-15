@@ -106,7 +106,17 @@ We'll use this file for all the examples below.
    ```
    **Output**:
    ```
-   2
+   1
+   ```
+
+5. **Count  case-insensitive,**:
+grep command to match both lowercase world and capitalized World
+   ```bash
+  grep -i -c "world" file.txt
+   ```
+   **Output**:
+   ```
+   2grep 
    ```
 
 6. **Show line numbers with matches**:
