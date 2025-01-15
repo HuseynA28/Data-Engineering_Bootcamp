@@ -104,6 +104,11 @@ The `cd` (change directory) command lets you navigate through folders.
   ```bash
   cd /home/user/Desktop
   ```
+- **Navigate Using Relative Paths**:
+  ```bash
+  cd ../Documents
+  ```
+  Moves to the `Documents` folder relative to the current directory.
 
 ---
 
@@ -114,6 +119,16 @@ Use the `history` command to see previously executed commands:
 history 5
 ```
 Displays the last 5 commands.
+
+To rerun a specific command:
+```bash
+!<command_number>
+```
+For example:
+```bash
+!42
+```
+Reruns the 42nd command from the history list.
 
 ---
 
@@ -148,6 +163,14 @@ Aliases let you create shortcuts for commands.
   ```bash
   nano file.txt
   ```
+- **Vim**: A powerful text editor.
+  ```bash
+  vim file.txt
+  ```
+  - Press `i` to enter insert mode.
+  - Make changes, then press `Esc`.
+  - Save and exit with `:wq`.
+  - Quit without saving with `:q!`.
 
 ### Redirection Operators
 - **Overwrite**:
@@ -167,6 +190,10 @@ Aliases let you create shortcuts for commands.
 - Display content:
   ```bash
   cat file.txt
+  ```
+- Display content with line numbers:
+  ```bash
+  cat -n file.txt
   ```
 - Combine files:
   ```bash
@@ -193,6 +220,20 @@ Aliases let you create shortcuts for commands.
   head -n 5 file.txt
   ```
 
+### `tail` (Last Few Lines)
+- Display last 10 lines:
+  ```bash
+  tail file.txt
+  ```
+- Display last 5 lines:
+  ```bash
+  tail -n 5 file.txt
+  ```
+- Monitor file updates in real-time:
+  ```bash
+  tail -f file.txt
+  ```
+
 ### `wc` (Word Count)
 - Count lines, words, and characters:
   ```bash
@@ -212,6 +253,10 @@ Aliases let you create shortcuts for commands.
   ```bash
   du -h file.txt
   ```
+- Check disk usage for all files in a directory:
+  ```bash
+  du -h /path/to/directory
+  ```
 
 ---
 
@@ -225,6 +270,10 @@ Aliases let you create shortcuts for commands.
 - Sort by the second column in a file:
   ```bash
   cat users | sort -k 2
+  ```
+- Sort numerically:
+  ```bash
+  sort -n numbers.txt
   ```
 
 ### Find Unique Lines
@@ -252,54 +301,14 @@ Aliases let you create shortcuts for commands.
   ```bash
   grep -F "pattern" file.txt
   ```
-
----
-
-## How to Work with Strings
-
-### Replace Characters
-- Replace characters with `tr`:
+- Case-insensitive search:
   ```bash
-  echo "bash" | tr 'b' 'd'
+  grep -i "pattern" file.txt
   ```
-  Output: `dash`
-
-### Extract Substrings with `cut`
-
-#### Basic Usage
-Extract the first 10 bytes from the output of `uptime`:
-```bash
-uptime | cut -b 1-10
-```
-
-#### Handling Non-English Characters
-Be cautious of multi-byte characters:
-```bash
-echo "höhö" | cut -b 1-3
-```
-Output: `hö`
-
-#### Using Delimiters
-Extract fields using a delimiter:
-```bash
-uptime | cut -d " " -f 2
-```
-
----
-
-## Why `sort` is Necessary Before `uniq`
-
-The `uniq` command only removes **adjacent duplicate lines**. To ensure correct results, always sort the input first:
-
-### Incorrect Example:
-```bash
-cat access.log | grep -F ".zip" | cut -d " " -f 7 | uniq
-```
-
-### Correct Example:
-```bash
-cat access.log | grep -F ".zip" | cut -d " " -f 7 | sort | uniq
-```
+- Display line numbers with matches:
+  ```bash
+  grep -n "pattern" file.txt
+  ```
 
 ---
 
@@ -463,8 +472,6 @@ echo "hello" > myfile.txt
 echo "appendme" >> myfile.txt
   ```
 
-### Remove files and folders
-
 - **Remove a File**:
   ```bash
   rm file.txt
@@ -477,6 +484,12 @@ echo "appendme" >> myfile.txt
   ```bash
   cp -R folder /path/to/destination/
   ```
+- **Copy multiple files**:
+  ```bash
+  cp -r myfile* myfolder/
+  ```
+  It will copy all the files starting with `myfile` to `myfolder`.
+
 - **Remove an Empty Directory**:
   ```bash
   rmdir empty_folder/
@@ -484,6 +497,23 @@ echo "appendme" >> myfile.txt
 - **Remove a Directory and Its Contents**:
   ```bash
   rm -r folder/
+  ```
+
+- **Rename**:
+  ```bash
+  mv myfile yourfile
+  ```
+- **Rename while copying**:
+  ```bash
+  cp -v myfile myfolder/myfile_copy
+  ```
+- **Move**:
+  ```bash
+  mv myfile myfolder/
+  ```
+  Move multiple files/folders in one command:
+  ```bash
+  mv myfile1 myfile2 myfile3 destination_folder
   ```
 
 ### Advanced Example
