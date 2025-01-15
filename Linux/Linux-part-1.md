@@ -476,6 +476,23 @@ echo "appendme" >> myfile.txt
   ```bash
   rm file.txt
   ```
+
+- **Remove an Empty Directory**:
+  ```bash
+  rmdir empty_folder/
+  ```
+- **Remove a Directory and Its Contents**:
+  ```bash
+  rm -r folder/
+  ```
+- **Remove multiple files**:
+  ```bash
+  rm -r folder1/file1 folder2/file2 folder3/file3
+  ```
+- **Rename**:
+  ```bash
+  mv myfile yourfile
+
 - **Copy a File**:
   ```bash
   cp file.txt /path/to/destination/
@@ -490,23 +507,13 @@ echo "appendme" >> myfile.txt
   ```
   It will copy all the files starting with `myfile` to `myfolder`.
 
-- **Remove an Empty Directory**:
-  ```bash
-  rmdir empty_folder/
-  ```
-- **Remove a Directory and Its Contents**:
-  ```bash
-  rm -r folder/
-  ```
-
-- **Rename**:
-  ```bash
-  mv myfile yourfile
   ```
 - **Rename while copying**:
   ```bash
   cp -v myfile myfolder/myfile_copy
   ```
+
+
 - **Move**:
   ```bash
   mv myfile myfolder/
