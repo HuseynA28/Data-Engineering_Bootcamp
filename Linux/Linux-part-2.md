@@ -1,11 +1,13 @@
 # Welcome to Linux Part II
 
-In this section, we explore more advanced Linux functions and command.
+In this section, we explore more advanced Linux functions and commands, focusing on the use of regular expressions (regex). This guide is designed with students in mind, offering practical examples for learning and mastering regex in Linux.
 
 ---
 
-## Regular Expressions in Linux
-Regular expressions (regex) are powerful tools for matching patterns in text. They are commonly used in Linux commands like `grep`, `sed`, and `awk` to search, filter, and manipulate text.
+# Regular Expressions in Linux
+
+## Overview
+Regular expressions (regex) are powerful tools for matching patterns in text. They are widely used in Linux commands like `grep`, `sed`, and `awk` to search, filter, and manipulate text. Regex provides precise control to find, replace, and analyze strings in files.
 
 ---
 
@@ -27,85 +29,130 @@ Hot
 Goodbye world
 ```
 
+We'll use this file for all the examples below.
+
 ---
 
 ## Key Regex Syntax and Examples
 
-| Symbol   | Meaning                                | Example   | Matches                     |
-| -------- | -------------------------------------- | --------- | --------------------------- |
-| `^`      | Start of line                          | `^Hello`  | Lines starting with "Hello" |
-| `$`      | End of line                            | `world$`  | Lines ending with "world"   |
-| `.`      | Any single character                   | `h.t`     | `hat`, `hit`, `hot`, etc.   |
-| `[abc]`  | Any character in brackets              | `[abc]`   | `a`, `b`, or `c`            |
-| `[^abc]` | Any character not in brackets          | `[^abc]`  | Any except `a`, `b`, `c`    |
-| `*`      | Zero or more of the previous character | `go*`     | `g`, `go`, `goo`, etc.      |
-| `+`      | One or more of the previous character  | `go+`     | `go`, `goo`, etc.           |
-| `?`      | Zero or one of the previous character  | `colou?r` | `color`, `colour`           |
-| `{n}`    | Exactly `n` occurrences                | `a{3}`    | `aaa`                       |
-| `{n,}`   | `n` or more occurrences                | `a{2,}`   | `aa`, `aaa`, etc.           |
-| `{n,m}`  | Between `n` and `m` occurrences        | `a{2,4}`  | `aa`, `aaa`, `aaaa`         |
+| Symbol   | Meaning                                | Example         | Matches                                   |
+| -------- | -------------------------------------- | --------------- | ----------------------------------------- |
+| `^`      | Start of line                          | `^Hello`        | Lines starting with "Hello"             |
+| `$`      | End of line                            | `world$`        | Lines ending with "world"               |
+| `.`      | Any single character                   | `h.t`           | `Hat`, `Hit`, `Hot`                      |
+| `[abc]`  | Any character in brackets              | `[abc]`         | Lines containing `a`, `b`, or `c`        |
+| `[^abc]` | Any character not in brackets          | `[^abc]`        | Lines without `a`, `b`, or `c`           |
+| `*`      | Zero or more of the previous character | `go*`           | Matches `g`, `go`, `goo`                 |
+| `+`      | One or more of the previous character  | `go+`           | Matches `go`, `goo`                      |
+| `?`      | Zero or one of the previous character  | `colou?r`       | Matches `color`, `colour`                |
+| `{n}`    | Exactly `n` occurrences                | `a{3}`          | Matches `aaa`                            |
+| `{n,}`   | `n` or more occurrences                | `a{2,}`         | Matches `aa`, `aaa`, etc.                |
+| `{n,m}`  | Between `n` and `m` occurrences        | `a{2,4}`        | Matches `aa`, `aaa`, `aaaa`              |
 
 ---
 
 ## Using `grep` with Regex
 
-`grep` is a Linux command for searching text using patterns, including regex.
+`grep` is a Linux command for searching text using patterns, including regex. Below are practical examples using `file.txt`.
 
 ### Examples
 
 1. **Search for lines starting with a word**:
-
    ```bash
    grep "^Hello" file.txt
    ```
-
-   Matches lines starting with "Hello".
+   **Output**:
+   ```
+   Hello World
+   ```
 
 2. **Search for lines ending with a word**:
-
    ```bash
    grep "world$" file.txt
    ```
-
-   Matches lines ending with "world".
+   **Output**:
+   ```
+   Hello World
+   Goodbye world
+   ```
 
 3. **Match any three-character word starting with `h` and ending with `t`**:
-
    ```bash
    grep "h.t" file.txt
    ```
-
-   Matches `hat`, `hit`, `hot`, etc.
-
-4. **Match lines containing a specific range of characters**:
-
-   ```bash
-   grep "[a-c]" file.txt
+   **Output**:
+   ```
+   Hat
+   Hit
+   Hot
    ```
 
-   Matches lines with `a`, `b`, or `c`.
-
-5. **Exclude lines containing specific characters**:
-
+4. **Exclude lines containing specific characters**:
    ```bash
-   grep "[^abc]" file.txt
+   grep -v "Hot" file.txt
+   ```
+   **Output**:
+   ```
+   Hello World
+   Linux is amazing
+   Hat
+   Hit
+   Goodbye world
    ```
 
-   Matches lines without `a`, `b`, or `c`.
-
-6. **Match lines with repeated patterns**:
-
+5. **Count matching lines**:
    ```bash
-   grep "go*" file.txt
+   grep -c "world" file.txt
+   ```
+   **Output**:
+   ```
+   2
    ```
 
-   Matches `g`, `go`, `goo`, etc.
+6. **Show line numbers with matches**:
+   ```bash
+   grep -n "Hello" file.txt
+   ```
+   **Output**:
+   ```
+   1:Hello World
+   ```
+
+7. **Search for patterns with specific ranges**:
+   ```bash
+   grep "[a-z]ing" file.txt
+   ```
+   **Output**:
+   ```
+   Linux is amazing
+   ```
+
+8. **Search for words with repeated characters**:
+   ```bash
+   grep "o*" file.txt
+   ```
+   **Output**:
+   ```
+   Hello World
+   Linux is amazing
+   Goodbye world
+   ```
+
+9. **Match words with escape characters**:
+   ```bash
+   grep "\." file.txt
+   ```
+   **Explanation**: This matches any line containing a literal `.` character.
 
 ---
 
-## Quick Tips
+## Additional Tips
 
-- Use `grep -i` for case-insensitive matching.
-- Add `-n` to display line numbers with matches.
-- Combine `grep` with other commands using pipes for advanced workflows.
+- Use `grep -i` for case-insensitive matching (e.g., `grep -i "hello" file.txt`).
+- Use `grep -A n` to show `n` lines after a match and `-B n` to show `n` lines before a match (e.g., `grep -A 1 "Hello" file.txt`).
+- Combine multiple patterns using `grep -E` or `grep "pattern1\|pattern2"`.
+
+---
+
+This updated guide provides a structured and detailed approach to learning regex with clear examples tailored for students. Let me know if further refinements are needed!
 
