@@ -1,6 +1,6 @@
 # Welcome to Linux Part II
 
-In this section, we explore more advanced Linux functions and commands, focusing on the use of regular expressions (regex). This guide is designed with students in mind, offering practical examples for learning and mastering regex in Linux.
+In this section, we explore more advanced Linux functions and commands.
 
 ---
 
@@ -153,6 +153,4 @@ We'll use this file for all the examples below.
 - Combine multiple patterns using `grep -E` or `grep "pattern1\|pattern2"`.
 
 ---
-
-This updated guide provides a structured and detailed approach to learning regex with clear examples tailored for students. Let me know if further refinements are needed!
 
