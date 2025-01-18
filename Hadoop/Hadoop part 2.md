@@ -105,6 +105,7 @@ hdfs dfs -get /user/centos9/datasets/titanic.csv .
 | `hdfs dfs -cp <source> <dest>` | Copy files in HDFS | `hdfs dfs -cp /user/centos9/file1 /user/centos9/copy/` |
 | `hdfs dfs -rm <path>` | Delete files/folders from HDFS | `hdfs dfs -rm /user/centos9/file.txt` |
 | `hdfs dfs -rm -r <path>` | Delete a directory from HDFS | `hdfs dfs -rm -r /user/centos9/old_folder` |
+| `hdfs dfs -rm -skipTrash <path>` | Permanently delete a file/directory from HDFS | `hdfs dfs -rm -skipTrash /user/centos9/old_folder` |
 | `hdfs dfs -du -h <path>` | Show directory size | `hdfs dfs -du -h /user/centos9/` |
 | `hdfs dfs -cat <path>` | Read a file in HDFS | `hdfs dfs -cat /user/centos9/file.txt` |
 | `hdfs dfs -tail <path>` | View the last 1KB of a file | `hdfs dfs -tail /user/centos9/file.txt` |
