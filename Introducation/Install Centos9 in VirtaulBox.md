@@ -2,9 +2,8 @@
 
 ## Step 1: Download CentOS 9 ISO
 
-1. Go to the [official CentOS website](https://www.centos.org/).
-2. Download the **CentOS Stream 9 ISO** from the download section.
-3. Choose the appropriate ISO (`x86_64` architecture for most systems).
+1. Go to the [official CentOS website](https://www.centos.org/download/).
+2. Choose the appropriate ISO (`x86_64` architecture for most systems).
 
 ## Step 2: Create a New Virtual Machine
 
@@ -14,7 +13,7 @@
 
 ## Step 3: Allocate Memory
 
-- Assign at least **2048 MB (2 GB)** of RAM (Recommended: **4096 MB (4 GB)** for better performance).
+- Assign at least **2048 MB (2 GB)** of RAM (Recommended: **4096 MB (6 GB)** for better performance).
 - Click **Next**.
 
 ## Step 4: Create a Virtual Hard Disk
