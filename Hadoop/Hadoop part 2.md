@@ -17,8 +17,20 @@ This command creates a directory named `bootcamp` in the HDFS file system.
 First, navigate to the Hadoop working directory and start all services:
 
 ```bash
-cd hadoop-hdfs/play/
 start-all.sh
+```
+
+To start only HDFS and YARN separately:
+
+```bash
+start-dfs.sh
+start-yarn.sh
+```
+
+To stop all services:
+
+```bash
+stop-all.sh
 ```
 
 ## Step 2: List HDFS Root Directory
@@ -60,7 +72,7 @@ Download the Titanic dataset locally:
 ```bash
 mkdir -p /home/centos9/datasets
 cd /home/centos9/datasets
-wget https://raw.githubusercontent.com/HuseynA28/Data-Engineering_Bootcamp/refs/heads/main/datasets/titanic.csv
+wget https://raw.githubusercontent.com/HuseynA28/Data-Engineering_Bootcamp/main/datasets/titanic.csv
 ```
 
 Now, upload the dataset to HDFS:
@@ -75,6 +87,12 @@ Verify the upload:
 hdfs dfs -ls /user/centos9/datasets/
 ```
 
+You can also copy the file from Hadoop HDFS to your local folder with `get`:
+
+```bash
+hdfs dfs -get /user/centos9/datasets/titanic.csv .
+```
+
 ## Step 5: Common HDFS Commands Explained
 
 | Command | Description | Example |
@@ -82,16 +100,18 @@ hdfs dfs -ls /user/centos9/datasets/
 | `hdfs dfs -ls <path>` | List files and directories in HDFS | `hdfs dfs -ls /user/centos9/` |
 | `hdfs dfs -mkdir <path>` | Create a new directory in HDFS | `hdfs dfs -mkdir /user/centos9/new_folder` |
 | `hdfs dfs -put <local> <hdfs>` | Upload files to HDFS | `hdfs dfs -put localfile.txt /user/centos9/` |
+| `hdfs dfs -get <hdfs> <local>` | Download files from HDFS | `hdfs dfs -get /user/centos9/file.txt .` |
 | `hdfs dfs -mv <source> <dest>` | Move files in HDFS | `hdfs dfs -mv /user/centos9/file1 /user/centos9/archive/` |
 | `hdfs dfs -cp <source> <dest>` | Copy files in HDFS | `hdfs dfs -cp /user/centos9/file1 /user/centos9/copy/` |
-| `hdfs dfs -chown user:group <path>` | Change file ownership | `hdfs dfs -chown centos9:supergroup /user/centos9/file.txt` |
-| `hdfs dfs -chmod <permissions> <path>` | Change file permissions | `hdfs dfs -chmod 755 /user/centos9/file.txt` |
-| `hdfs dfs -get <hdfs> <local>` | Download files from HDFS | `hdfs dfs -get /user/centos9/file.txt localfile.txt` |
-| `hdfs dfs -du -h <path>` | Show directory size | `hdfs dfs -du -h /user/centos9/` |
 | `hdfs dfs -rm <path>` | Delete files/folders from HDFS | `hdfs dfs -rm /user/centos9/file.txt` |
 | `hdfs dfs -rm -r <path>` | Delete a directory from HDFS | `hdfs dfs -rm -r /user/centos9/old_folder` |
+| `hdfs dfs -du -h <path>` | Show directory size | `hdfs dfs -du -h /user/centos9/` |
 | `hdfs dfs -cat <path>` | Read a file in HDFS | `hdfs dfs -cat /user/centos9/file.txt` |
-| `hdfs envvars` | Show Hadoop environment variables | `hdfs envvars` |
+| `hdfs dfs -tail <path>` | View the last 1KB of a file | `hdfs dfs -tail /user/centos9/file.txt` |
+| `hdfs dfs -head <path>` | View the first 1KB of a file | `hdfs dfs -head /user/centos9/file.txt` |
+| `hdfs dfs -touchz <path>` | Create an empty file | `hdfs dfs -touchz /user/centos9/newfile.txt` |
+| `hdfs dfs -test -e <path>` | Check if a file exists | `hdfs dfs -test -e /user/centos9/file.txt && echo Exists` |
+| `hdfs dfsadmin -report` | Show HDFS cluster report | `hdfs dfsadmin -report` |
 | `hdfs fsck <path>` | Check HDFS health | `hdfs fsck /user/centos9` |
 
 ## Step 6: Check HDFS Health
@@ -122,7 +142,6 @@ hdfs fsck / | grep 'Under replicated' | awk -F':' '{print $1}' >> /tmp/under_rep
 To set replication:
 
 ```bash
-for hdfsfile in `cat /tmp/under_replicated_files`; do echo "Fixing $hdfsfile :" ;  hadoop fs -setrep 1 $hdfsfile; done
+for hdfsfile in $(cat /tmp/under_replicated_files); do echo "Fixing $hdfsfile :" ; hdfs dfs -setrep 1 $hdfsfile; done
 ```
-
 
