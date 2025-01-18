@@ -2,6 +2,30 @@
 
 Welcome to **Hadoop Part 1**! In this section, we will install the dataset and work with it in Hadoop. Let’s get started.
 
+
+Create the Parent Directory:
+
+bash
+Copy
+Edit
+hdfs dfs -mkdir -p /user/centos9
+This command creates the /user/centos9 directory in HDFS, including any necessary parent directories.
+
+Create the datasets Directory:
+
+bash
+Copy
+Edit
+hdfs dfs -mkdir /user/centos9/datasets
+After creating the parent directory, this command creates the datasets directory within /user/centos9.
+
+Verify the Directory Structure:
+
+bash
+Copy
+Edit
+hdfs dfs -ls /user/centos9
+
 ## Step 1: Create a Folder for Datasets
 
 First, create a folder named `datasets` in the `/home/centos9/` directory. Then navigate to this folder:
