@@ -1,0 +1,61 @@
+# Enable SSH on CentOS
+
+## Step 1: Enable SSH on CentOS
+
+1. Start your CentOS virtual machine.
+2. Open the terminal and check if SSH is installed:
+
+    ```bash
+    sudo systemctl status sshd
+    ```
+
+3. If SSH is not running, start it with:
+
+    ```bash
+    sudo systemctl start sshd
+    ```
+
+4. To make SSH start automatically on boot:
+
+    ```bash
+    sudo systemctl enable sshd
+    ```
+
+## Step 2: Find Your IP Address
+
+Run the following command inside CentOS:
+
+```bash
+ip addr show
+```
+
+Look for the `inet` address under your active network interface (like `eth0` or `enp0s3`). The IP should be something like `192.168.x.x`.
+
+## Step 3: Configure VirtualBox Network
+
+You need to ensure the Virtual Machine is accessible from your host system:
+
+1. Open VirtualBox and select your CentOS VM.
+2. Go to **Settings > Network** and check:
+   - If it's **NAT**, change it to **Bridged Adapter** (Recommended).
+   - If using **NAT**, you must configure **Port Forwarding**:
+     1. Go to **Settings > Network > Advanced > Port Forwarding**.
+     2. Add a new rule:
+        - **Protocol**: TCP
+        - **Host IP**: Leave blank
+        - **Host Port**: 2222
+        - **Guest IP**: Leave blank
+        - **Guest Port**: 22
+     3. Click **OK** and restart your CentOS VM.
+
+## Step 4: Connect via MobaXterm
+
+1. Open **MobaXterm** on your Windows system.
+2. Click on **Session > SSH**.
+3. In the **Remote host** field:
+   - If using **Bridged Adapter**, enter your CentOS IP (e.g., `192.168.x.x`).
+   - If using **NAT with Port Forwarding**, enter `127.0.0.1` and change the port to `2222`.
+4. Enter your CentOS username (default is `root` or a user you created).
+5. Click **OK** to connect.
+
+Let me know if you face any issues!
