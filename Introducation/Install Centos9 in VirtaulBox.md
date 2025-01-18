@@ -75,4 +75,3 @@
    sudo dnf update -y
    ```
 
-Congratulations! 🎉 You have successfully installed CentOS 9 on VirtualBox.

@@ -312,8 +312,4 @@ stop-dfs.sh
 stop-yarn.sh
 ```
 
-## Conclusion
 
-You have successfully installed and configured Hadoop on CentOS! 🎉
-
-Now, you can use Hadoop for big data storage and processing. Let me know if you need further guidance! 🚀
