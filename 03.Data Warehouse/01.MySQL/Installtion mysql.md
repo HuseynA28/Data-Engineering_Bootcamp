@@ -137,4 +137,4 @@ Click **Test Connection** → Should show "Connected".
 
 ---
 
-This documentation follows GitHub Markdown best practices and is formatted for easy reading and execution.
+
