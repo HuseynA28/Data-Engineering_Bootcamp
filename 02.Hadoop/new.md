@@ -31,13 +31,31 @@ To check the SSH service status:
 ```bash
 sudo systemctl status sshd
 ```
-## Step 5: Install wget
+
+## Step 3: Configure SSH (Password-less Access)
+
+Generate an SSH key for the Hadoop user:
 
 ```bash
-sudo yum install wget
+ssh-keygen -t rsa -b 4096
 ```
 
-## Step 6: Install Hadoop
+Press Enter for the default location (~/.ssh/id_rsa). Press Enter again if you don’t want a passphrase.
+
+Add the generated key to authorized keys:
+
+```bash
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+chmod 640 ~/.ssh/authorized_keys
+```
+
+## Step 4: Install wget
+
+```bash
+sudo yum install -y wget
+```
+
+## Step 5: Install Hadoop
 
 Download the latest Hadoop version:
 
@@ -50,27 +68,30 @@ Extract the downloaded file:
 ```bash
 tar -xvzf hadoop-3.4.0.tar.gz
 ```
-## Step 7: We extent  the haddop and now we can deleted tra.gaz fole 
+
+Remove the archive file:
 
 ```bash
 sudo rm -rf hadoop-3.4.0.tar.gz
 ```
-## Step 8: Create a folder called hadoop
+
+Create a directory for Hadoop:
 
 ```bash
-mkdir hadoop
+mkdir ~/hadoop
 ```
 
-Move it to a simpler location:
+Move Hadoop to the new directory:
 
 ```bash
-mv hadoop-3.4.0 hadoop
+mv hadoop-3.4.0 ~/hadoop
 ```
-## Step 8:  Install nano 
+
+## Step 6: Install nano
+
 ```bash
 sudo yum install -y nano
 ```
-
 
 ## Step 7: Configure Environment Variables
 
@@ -83,8 +104,9 @@ nano ~/.bashrc
 Add the following lines at the end:
 
 ```bash
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
-export HADOOP_HOME=/home/hadoop/hadoop
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+export PATH=$JAVA_HOME/bin:$PATH
+export HADOOP_HOME=~/hadoop/hadoop-3.4.0
 export HADOOP_INSTALL=$HADOOP_HOME
 export HADOOP_MAPRED_HOME=$HADOOP_HOME
 export HADOOP_COMMON_HOME=$HADOOP_HOME
@@ -103,7 +125,7 @@ Apply the changes:
 source ~/.bashrc
 ```
 
-Now, edit `hadoop-env.sh`:
+Edit `hadoop-env.sh`:
 
 ```bash
 nano $HADOOP_HOME/etc/hadoop/hadoop-env.sh
@@ -112,7 +134,7 @@ nano $HADOOP_HOME/etc/hadoop/hadoop-env.sh
 Find the line that starts with `export JAVA_HOME` and update it to:
 
 ```bash
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
 ```
 
 ## Step 8: Configure Hadoop
@@ -120,10 +142,11 @@ export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 Create directories for Hadoop storage:
 
 ```bash
-mkdir -p ~/hadoopdata/hdfs/{namenode,datanode}
+mkdir -p ~/hadoop/hadoopdata/namenode
+mkdir -p ~/hadoop/hadoopdata/datanode
 ```
 
-Edit `core-site.xml`
+Edit `core-site.xml`:
 
 ```bash
 nano $HADOOP_HOME/etc/hadoop/core-site.xml
@@ -140,7 +163,7 @@ Add:
 </configuration>
 ```
 
-Edit `hdfs-site.xml`
+Edit `hdfs-site.xml`:
 
 ```bash
 nano $HADOOP_HOME/etc/hadoop/hdfs-site.xml
@@ -165,7 +188,7 @@ Add:
 </configuration>
 ```
 
-Edit `mapred-site.xml`
+Edit `mapred-site.xml`:
 
 ```bash
 nano $HADOOP_HOME/etc/hadoop/mapred-site.xml
@@ -182,7 +205,7 @@ Add:
 </configuration>
 ```
 
-Edit `yarn-site.xml`
+Edit `yarn-site.xml`:
 
 ```bash
 nano $HADOOP_HOME/etc/hadoop/yarn-site.xml
@@ -280,5 +303,3 @@ When finished, stop Hadoop services:
 stop-dfs.sh
 stop-yarn.sh
 ```
-
-
