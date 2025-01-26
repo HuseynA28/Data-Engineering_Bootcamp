@@ -82,12 +82,6 @@ Change the root password (replace `Vagrant?.123456` with your preferred strong p
 ALTER USER 'root'@'localhost' IDENTIFIED BY 'Vagrant?.123456';
 ```
 
-(Optional) Run the secure installation script to remove test databases and secure other settings:
-
-```bash
-sudo mysql_secure_installation
-```
-
 Follow the prompts accordingly.
 
 ## 2. Database & User Creation
@@ -117,7 +111,7 @@ CREATE USER 'school_admin'@'%'
 ```
 
 ### 2.4 Grant Privileges and Configure Remote Access
-Grant the user full privileges on all databases (for a more restrictive approach, specify the exact database and tables):
+Grant the user full privileges on all databases:
 
 ```sql
 GRANT ALL PRIVILEGES ON *.* TO 'school_admin'@'%' WITH GRANT OPTION;
@@ -128,6 +122,12 @@ Optional check: To verify the user was created successfully:
 
 ```sql
 SELECT Host, User FROM mysql.user;
+```
+
+Exit MySQL:
+
+```sql
+exit;
 ```
 
 Enable remote connections: By default, MySQL may only listen on localhost. To allow external connections, edit the MySQL configuration:
@@ -148,17 +148,11 @@ Save and exit the file. Then restart MySQL:
 sudo systemctl restart mysqld
 ```
 
-#### Allowing MySQL Through the Firewall
-CentOS uses `firewalld`. We must ensure MySQL port `3306` is open:
-
-```bash
-sudo firewall-cmd --permanent --add-service=mysql
-sudo firewall-cmd --permanent --add-port=3306/tcp
-sudo firewall-cmd --reload
-```
+Do not forget to open port 3306 in VirtualBox.
 
 ## 3. DBeaver Installation
-Install DBeaver on your local computer
+Install DBeaver on your local computer.
+
 ## 4. Database Connection via DBeaver
 
 Now let’s connect to `school_db` with the user `school_admin` via DBeaver.
