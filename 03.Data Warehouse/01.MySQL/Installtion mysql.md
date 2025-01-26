@@ -87,7 +87,8 @@ EXIT;
 
 ### 3.1 Install Java Runtime
 ```bash
-sudo dnf install java-17-openjdk
+sudo dnf install java-21-openjdk
+
 ```
 
 ### 3.2 Install DBeaver
