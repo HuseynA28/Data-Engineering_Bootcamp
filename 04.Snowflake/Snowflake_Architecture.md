@@ -4,7 +4,7 @@ Snowflake’s architecture is a hybrid of traditional shared-disk and shared-not
 
 Below is an overview of Snowflake's architecture:
 
-![Architecture Overview](04.Snowflake/Snowflake_documentation/architecture-overview.png)
+![Architecture Overview](/Snowflake_documentation/architecture-overview.png)
 
 Snowflake’s architecture consists of three key layers:
 
