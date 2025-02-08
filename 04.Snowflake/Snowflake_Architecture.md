@@ -44,7 +44,7 @@ Snowflake stores metadata for every micro-partition, including:
 - The number of distinct values.
 - Additional properties used for both optimization and efficient query processing.
 
-![Clustering and Micro-partitions](/Snowflake_documentation/clustering.png)
+![Clustering and Micro-partitions](04.Snowflake/Snowflake_documentation/clustering.png)
 
 **Benefits of Micro-partitioning:**
 
