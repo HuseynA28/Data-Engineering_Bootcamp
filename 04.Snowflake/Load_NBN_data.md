@@ -1,3 +1,4 @@
+```sql
 -- ------------------------------------------------------------
 -- Use the ACCOUNTADMIN role
 -- ------------------------------------------------------------
@@ -45,7 +46,7 @@ GRANT ALL ON FUTURE TABLES IN SCHEMA AIRBNB.AIRBNB_DATA TO ROLE dbt_role;
 -- ------------------------------------------------------------
 CREATE STAGE IF NOT EXISTS AIRBNB_STAGE;
 
--- (Optional) To view stage details, you might use:
+-- (Optional) To view stage details:
 -- DESC STAGE AIRBNB_STAGE;
 -- LIST @AIRBNB_STAGE;
 
@@ -53,28 +54,16 @@ CREATE STAGE IF NOT EXISTS AIRBNB_STAGE;
 -- Create file formats for CSV ingestion
 -- ------------------------------------------------------------
 
--- File format with header parsing (for schema inference or previews)
 CREATE OR REPLACE FILE FORMAT AIRBND_FILE_FORMAT
   TYPE = 'CSV'
   PARSE_HEADER = TRUE
   FIELD_OPTIONALLY_ENCLOSED_BY = '"';
 
--- File format for COPY INTO operations (skip header)
 CREATE OR REPLACE FILE FORMAT AIRBND_FILE_FORMAT_COPY_INTO_TABLE
   TYPE = 'CSV'
   PARSE_HEADER = FALSE
   FIELD_OPTIONALLY_ENCLOSED_BY = '"'
   SKIP_HEADER = 1;
-
--- (Optional) Preview file schema using infer_schema:
--- SELECT *
--- FROM TABLE(
---   INFER_SCHEMA(
---     LOCATION => '@AIRBNB_STAGE',
---     FILES => 'reviews_details.csv',
---     FILE_FORMAT => 'AIRBND_FILE_FORMAT'
---   )
--- );
 
 -- ------------------------------------------------------------
 -- Create and load temporary table: REVIEWS_DETAILS
@@ -99,9 +88,6 @@ COPY INTO REVIEWS_DETAILS (
 FROM @AIRBNB_STAGE
 FILES = ('reviews_details.csv')
 FILE_FORMAT = (FORMAT_NAME = 'AIRBND_FILE_FORMAT_COPY_INTO_TABLE');
-
--- (Optional) Check the data:
--- SELECT * FROM REVIEWS_DETAILS LIMIT 10;
 
 -- ------------------------------------------------------------
 -- Create and load temporary table: listings
@@ -154,7 +140,7 @@ CREATE OR REPLACE TEMPORARY TABLE calendar (
     listing_id    INTEGER,
     calendar_date TIMESTAMP,
     available     BOOLEAN,
-    price         STRING 
+    price         STRING
 );
 
 COPY INTO calendar (
@@ -166,9 +152,6 @@ COPY INTO calendar (
 FROM @AIRBNB_STAGE
 FILES = ('calendar.csv')
 FILE_FORMAT = (FORMAT_NAME = 'AIRBND_FILE_FORMAT_COPY_INTO_TABLE');
-
--- (Optional) Verify calendar data:
--- SELECT * FROM calendar LIMIT 10;
 
 -- ------------------------------------------------------------
 -- Create and load temporary table: reviews
@@ -190,3 +173,5 @@ FILE_FORMAT = (FORMAT_NAME = 'AIRBND_FILE_FORMAT_COPY_INTO_TABLE');
 -- Grant SELECT privilege on REVIEWS_DETAILS to dbt_role
 -- ------------------------------------------------------------
 GRANT SELECT ON REVIEWS_DETAILS TO ROLE dbt_role;
+```
+
