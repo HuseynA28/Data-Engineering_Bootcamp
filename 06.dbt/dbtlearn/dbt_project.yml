@@ -2,11 +2,11 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'dbtProject'
+name: 'dbtlearn'
 version: '1.0.0'
 
 # This setting configures which "profile" dbt uses for this project.
-profile: 'dbtProject'
+profile: 'dbtlearn'
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -17,6 +17,7 @@ test-paths: ["tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
+asset-paths: ["assets"]
 
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
@@ -29,8 +30,26 @@ clean-targets:         # directories to be removed by `dbt clean`
 # In this example config, we tell dbt to build all models in the example/
 # directory as views. These settings can be overridden in the individual model
 # files using the `{{ config(...) }}` macro.
+
+
 models:
-  dbtProject:
-    # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: view
+  dbtlearn:
+    # Default setting for models under 'example' (view)
+    +materialized: view 
+
+    dim:  
+      # Default setting for models in the 'dim' folder (table)
+      +materialized: table 
+
+      dim_hosts_cleansed:
+        # Override materialization for this specific model (view)
+        +materialized: view 
+
+    scr:
+      +materialized: ephemeral
+
+      
+vars:
+  user_name: default_user_name_for_this_project
+
+

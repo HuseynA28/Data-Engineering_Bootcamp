@@ -1,0 +1,7 @@
+dbtPy12/bin/
+dbtPy12/lib/
+dbtPy12/lib/*
+
+dbtPy12/lib/python3.12/*
+dbtPy12/lib/python3.12/bin
+dbtPy12/lib/python3.12/site-packages/
