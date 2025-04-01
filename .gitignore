@@ -5,3 +5,8 @@ dbtPy12/lib/*
 dbtPy12/lib/python3.12/*
 dbtPy12/lib/python3.12/bin
 dbtPy12/lib/python3.12/site-packages/
+.*
+.
+.Py3.11dbt
+08.Airflow\.astro
+08.Airflow\airflow-materials\__MACOSX
